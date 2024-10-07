@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMW 5 Серия E34 </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>BMW 5 Серия E34</h1>
+</header>
+
+<section id="product-details">
+    <img src="pictures/bmw e34.webp" alt="BMW 5 Серия E34" style="width:300px;">
+    <h2>Полное описание</h2>
+    <p>BMW 5 Серия E34 — это легендарная модель автомобиля, которая отличается своими элегантными линиями и мощными характеристиками. Наша LEGO-версия этого автомобиля передает каждую деталь с высокой точностью и эстетикой.</p>
+    <p><strong>Технические характеристики:</strong></p>
+    <ul>
+        <li>Двигатель: 2.0 литра</li>
+        <li>Мощность: 150 л.с.</li>
+        <li>Привод: Задний</li>
+        <li>Год выпуска: 1992</li>
+    </ul>
+    <p><strong>Цена: 5000 ₽</strong></p>
+    <button onclick="addToCart('BMW 5 Серия E34', 5000)">Добавить в корзину</button>
+</section>
+
+<footer>
+    <p>&copy; 2024 RACEKIT</p>
+    <p><a href="mailto:info@racekit.com">info@racekit.com</a></p>
+</footer>
+
+<script>
+    function addToCart(name, price) {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        cartItems.push({ name, price });
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        alert(`${name} добавлен в корзину.`);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RACEKIT</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="javascript/script.js" defer></script>
+      <link rel="shortcut icon" href="pictures/logo.png" />
+
+</head>
+<body>
+
+<header>
+    <h1>RACEKIT: Реалистичные автомобили из кубиков, которые оживают</h1>
+    <p>Создайте свою коллекцию автомобилей с фотореалистичными деталями и высоким качеством сборки.</p>
+    <a href="#products">Посмотреть модели</a>
+</header>
+
+<section id="products">
+    <h2>Ваше хобби, Ваши правила</h2>
+    <p>Наши фотореалистичные модели созданы для настоящих ценителей. Мы производим ограниченные тиражи автомобилей, детализированные до мельчайших частей.</p>
+    
+    <div class="products">
+        <div class="product">
+            <a href="pages/bmw_e34.html" target="_blank">
+                <img src="pictures/bmw e34.webp" alt="BMW 5 Серия E34">
+                <div class="product-info">
+                    <p>BMW 5 Серия E34</p>
+                    <p>Цена: 5000 ₽</p>
+                </div>
+            </a>
+            <button onclick="addToCart('BMW 5 Серия E34', 5000)">Добавить в корзину</button>
+        </div>
+
+        <div class="product">
+            <a href="pages/bmw-e36.html" target="_blank">
+                <img src="pictures/bmw e36.webp" alt="BMW 3 Серия E36">
+                <div class="product-info">
+                    <p>BMW 3 Серия E36</p>
+                    <p>Цена: 5000 ₽</p>
+                </div>
+            </a>
+            <button onclick="addToCart('BMW 3 Серия E36', 5000)">Добавить в корзину</button>
+        </div>
+
+        <div class="product">
+            <a href="pages/bmw-e38.html" target="_blank">
+                <img src="pictures/bmw e38.webp" alt="BMW 7 Серия E38">
+                <div class="product-info">
+                    <p>BMW 7 Серия E38</p>
+                    <p>Цена: 5000 ₽</p>
+                </div>
+            </a>
+            <button onclick="addToCart('BMW 7 Серия E38', 5000)">Добавить в корзину</button>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<div id="cart" onclick="openCartInNewTab()">🛒 Корзина (<span id="cart-count">0</span>)</div>
+
+<!-- Корзина товаров -->
+<div id="cart-items" style="display:none;">
+    <h3>Товары в вашей корзине:</h3>
+    <ul id="items-list"></ul>
+    <p>Итого: <span id="total-price">0</span> ₽</p>
+</div>
+
+<!-- Форма оформления заказа -->
+<div id="checkout-form" class="checkout-form">
+    <h3>Оформление заказа</h3>
+    <form id="payment-form">
+        <input type="text" id="name" placeholder="Ваше имя" required>
+        <input type="email" id="email" placeholder="Ваш email" required>
+        <input type="text" id="address" placeholder="Адрес доставки" required>
+        <div id="card-element"></div>
+        <button type="submit">Оплатить</button>
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2024 RACEKIT</p>
+    <p>Следите за нами в социальных сетях:</p>
+    <p>
+        <a href="https://www.instagram.com/racekit">Instagram</a> | 
+        <a href="https://www.facebook.com/racekit">Facebook</a> | 
+        <a href="https://www.tiktok.com/@racekit">TikTok</a>
+    </p>
+    <p><a href="mailto:info@racekit.com">info@racekit.com</a></p>
+</footer>
+
+</body>
+</html>

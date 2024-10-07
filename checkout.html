@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа - RACEKIT</title>
+    <link rel="stylesheet" href="style.css">
+          <link rel="shortcut icon" href="pictures/logo.png" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        .checkout-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #ff4500;
+        }
+
+        .total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #ff4500;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background-color: #e03e00;
+        }
+
+        .order-summary {
+            margin-top: 30px;
+        }
+
+        .order-summary ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .order-summary li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            color: #333;
+        }
+
+        .order-summary li:last-child {
+            border-bottom: none;
+        }
+    </style>
+    <script src="checkout.js" defer></script>
+</head>
+<body>
+
+    <div class="checkout-container">
+    <h1>Оформление заказа</h1>
+
+    <div class="order-summary">
+        <h3>Ваши товары:</h3>
+        <ul id="items-list">
+            <!-- Список товаров будет загружен через JS -->
+        </ul>
+        <p class="total">Итого: <span id="total-price">0</span> ₽</p>
+    </div>
+
+    <form id="payment-form">
+        <!-- Ваша форма оформления заказа -->
+        <div class="form-group">
+            <label for="name">Имя</label>
+            <input type="text" id="name" placeholder="Введите ваше имя" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Введите ваш email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Адрес доставки</label>
+            <input type="text" id="address" placeholder="Введите ваш адрес" required>
+        </div>
+
+        <div class="form-group">
+            <label for="city">Город</label>
+            <input type="text" id="city" placeholder="Введите ваш город" required>
+        </div>
+
+        <div class="form-group">
+            <label for="postal-code">Почтовый индекс</label>
+            <input type="text" id="postal-code" placeholder="Введите почтовый индекс" required>
+        </div>
+
+        <div class="form-group">
+            <label for="payment-method">Способ оплаты</label>
+            <select id="payment-method" required>
+                <option value="">Выберите способ оплаты</option>
+                <option value="card">Банковская карта</option>
+                <option value="paypal">PayPal</option>
+                <option value="cash">Наличные при доставке</option>
+            </select>
+        </div>
+
+        <!-- Элемент для оплаты через карту -->
+        <div id="card-element" class="form-group" style="display:none;">
+            <!-- Stripe Elements или другой процессор -->
+        </div>
+
+        <button type="submit" class="checkout-btn">Оплатить</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const totalPrice = localStorage.getItem('totalPrice') || 0;
+
+        const itemsList = document.getElementById('items-list');
+        
+        cartItems.forEach(item => {
+            const li = document.createElement('li');
+
+            // Добавляем картинку товара
+            let imgSrc = '';
+            switch(item.name) {
+                case 'BMW 5 Серия E34':
+                    imgSrc = 'pictures/bmw e34.webp';
+                    break;
+                case 'BMW 3 Серия E36':
+                    imgSrc = 'pictures/bmw e36.webp';
+                    break;
+                case 'BMW 7 Серия E38':
+                    imgSrc = 'pictures/bmw e38.webp';
+                    break;
+                default:
+                    imgSrc = 'default-image.jpg'; // На случай, если изображение отсутствует
+            }
+
+            li.innerHTML = `
+                <img src="${imgSrc}" alt="${item.name}" style="width: 100px; height: auto; margin-right: 10px;">
+                ${item.name} - ${item.price} ₽
+            `;
+
+            itemsList.appendChild(li);
+        });
+
+        document.getElementById('total-price').textContent = totalPrice;
+    });
+
+    document.getElementById('payment-method').addEventListener('change', function() {
+        const cardElement = document.getElementById('card-element');
+        cardElement.style.display = this.value === 'card' ? 'block' : 'none';
+    });
+
+    document.getElementById('payment-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        alert('Спасибо за ваш заказ! Оплата успешно произведена.');
+        localStorage.clear();
+        window.location.href = 'confirmation.html';
+    });
+</script>
+
+</body>
+</html>
