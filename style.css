@@ -1,0 +1,487 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+header {
+    background: url('porsche.png') no-repeat center center/cover;
+    height: 100vh;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 4rem;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.5rem;
+}
+
+header a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff4500;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #fff;
+}
+
+section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+section p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.products {
+    display: flex;
+    justify-content: center; /* Центрируем все карточки */
+    gap: 20px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap; /* Обеспечиваем перенос карточек на новую строку при недостатке места */
+}
+
+.product {
+    flex: 0 1 30%; /* Три карточки в ряд, фиксированный размер */
+    max-width: 30%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.product:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.product img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-info p {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.product-info p:first-child {
+    font-weight: bold; /* Жирное начертание для названия автомобиля */
+}
+
+.product-info button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.product-info button:hover {
+    background-color: #e03e00;
+}
+
+#cart {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #222;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#cart-items {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background-color: #fff;
+    color: #333;
+    padding: 20px;
+    border: 1px solid #222;
+    border-radius: 5px;
+    display: none;
+    max-width: 300px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 1024px) {
+    .product {
+        flex: 0 1 calc(50% - 20px); /* Две карточки в ряд на планшетах */
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .product {
+        flex: 0 1 100%; /* Одна карточка на мобильных устройствах */
+        max-width: 100%;
+    }
+
+    .product img {
+        width: 80%; /* Изменяем размер изображения на мобильных устройствах */
+        margin: 0 auto 10px; /* Центрируем изображение */
+    }
+}
+/* Дизайн корзины */
+#cart {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #ff4500;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#cart:hover {
+    background-color: #e03e00;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+#cart-items {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background-color: white;
+    color: #333;
+    padding: 20px;
+    border-radius: 15px;
+    display: none;
+    max-width: 350px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+#cart-items h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#cart-items ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#cart-items ul li {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#cart-items ul li span {
+    font-size: 1rem;
+    color: #ff4500;
+    cursor: pointer;
+}
+
+#total-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#checkout-btn {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+#checkout-btn:hover {
+    background-color: #e03e00;
+}
+/* Всплывающее окно оформления заказа */
+#checkout-form {
+    position: fixed;
+    bottom: -100%; /* Окно скрыто за пределами экрана по умолчанию */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh; /* Максимальная высота окна — 90% высоты экрана */
+    overflow-y: auto; /* Добавляем вертикальный скролл, если контент превышает высоту окна */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: bottom 0.4s ease;
+}
+
+#checkout-form.show {
+    bottom: 0; /* Окно выезжает снизу экрана */
+}
+
+#checkout-form h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+    word-wrap: break-word; /* Разбиваем длинные слова для предотвращения вылазания за границы */
+}
+
+#checkout-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Гарантируем, что padding не влияет на ширину */
+}
+
+#checkout-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box; /* Гарантируем, что padding не влияет на ширину */
+}
+
+#checkout-form button:hover {
+    background-color: #e03e00;
+}
+
+#card-element {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box; /* Гарантируем, что padding не влияет на ширину */
+}
+
+@media (max-width: 768px) {
+    #checkout-form {
+        padding: 15px;
+        max-width: 90%; /* Уменьшаем ширину окна на мобильных устройствах */
+    }
+
+    #checkout-form h3 {
+        font-size: 1.6rem;
+    }
+
+    #checkout-form input {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    #checkout-form button {
+        padding: 10px;
+        font-size: 1.1rem;
+    }
+}
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #ff4500;
+}
+
+
+/* Анимация при открытии */
+#checkout-form.show {
+    animation: slideUp 0.4s ease forwards;
+}
+
+@keyframes slideUp {
+    from {
+        bottom: -100%;
+    }
+    to {
+        bottom: 0;
+    }
+}
+/* Анимация для изменения количества товара */
+.quantity-animation {
+    animation: quantityChange 0.3s ease-in-out;
+}
+
+@keyframes quantityChange {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Анимация для удаления товара */
+.item-removal {
+    animation: removeItem 0.5s ease-out forwards;
+}
+
+@keyframes removeItem {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+
+/* Анимация для обновления суммы корзины */
+.total-update-animation {
+    animation: totalUpdate 0.3s ease-in-out;
+}
+
+@keyframes totalUpdate {
+    0% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.order-summary img {
+    width: auto; /* Убираем ограничения по ширине */
+    height: auto; /* Убираем ограничения по высоте */
+    max-width: none; /* Отменяем любые ограничения по максимальной ширине */
+    max-height: none; /* Отменяем любые ограничения по максимальной высоте */
+    border-radius: 5px;
+    margin-right: 15px;
+    display: inline-block;
+}
+.order-summary li {
+    display: flex;
+    align-items: center;
+}
+.product button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.product button:hover {
+    background-color: #e03e00;
+    transform: translateY(-2px);
+}
+
+.product button:active {
+    transform: translateY(1px);
+}
+
+
+
+/* Дизайн футера */
+footer {
+    background-color: #222;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 10px 0;
+}
+
+footer a {
+    color: #ff4500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #e03e00;
+    text-decoration: underline;
+}
+
+footer .social-icons {
+    margin: 20px 0;
+}
+
+footer .social-icons a {
+    margin: 0 10px;
+    display: inline-block;
+    font-size: 1.5rem;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+footer .social-icons a:hover {
+    color: #ff4500;
+}
